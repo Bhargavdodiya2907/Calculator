@@ -2,9 +2,12 @@ package com.bhargav.calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputBinding
+import android.widget.Button
 import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import net.objecthunter.exp4j.ExpressionBuilder
 import javax.xml.xpath.XPathExpression
 
 private val InputBinding.root: Any
@@ -34,7 +37,19 @@ class MainActivity : AppCompatActivity() {
     fun onAllclearClick(view: View) {}
 
 
-    fun onDigitClick(view: View) {}
+    fun onDigitClick(view: View) {
+
+        if (stateError){
+            binding.dataTv.text=(view as Button).text
+            stateError=false
+        }
+        else{
+            binding.dataTv.append((view as Button).text)
+        }
+
+        lastNumeric=true
+        onEqual()
+    }
 
 
     fun onEqualClick(view: View) {}
@@ -53,6 +68,21 @@ class MainActivity : AppCompatActivity() {
         if (lastNumeric && !stateError){
 
             val txt = binding.dataTv.text.toString()
+
+            expression=ExpressionBuilder(txt).build()
+
+            try {
+
+                val result= expression.evaluate()
+                binding.resultTv.visibility=View.VISIBLE
+                binding.resultTv.text="="+result.toString()
+
+            }catch (ex : ArithmeticException){
+                Log.e("evaluate error", ex.toString())
+                binding.resultTv.text="Error"
+                stateError=true
+                lastNumeric=false
+            }
         }
 
     }
