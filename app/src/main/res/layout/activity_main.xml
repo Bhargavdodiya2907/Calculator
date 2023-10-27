@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="37+40"
+        android:text=""
         android:textAlignment="viewEnd"
         android:layout_marginEnd="12dp"
         android:textSize="30dp"
@@ -28,7 +28,7 @@
         android:layout_marginEnd="12dp"
         android:visibility="gone"
         android:textSize="30dp"
-        android:text="=3751"
+        android:text=""
         android:textColor="#706E6E"
         app:layout_constraintBottom_toTopOf="@id/line"
         app:layout_constraintEnd_toEndOf="parent"
@@ -210,6 +210,8 @@
             <com.google.android.material.button.MaterialButton
                 style="@style/operatorbutton"
                 android:id="@+id/btn_equal"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/btnBackground2"
                 android:onClick="onEqualClick"
                 android:text="="/>
 
